@@ -28,6 +28,8 @@ new Exporter(stateManager);
 
 // Message popup
 const messagePopup = document.getElementById("message-popup");
+const dialogueBackdrop = document.getElementById("dialogue-backdrop");
+
 EventBus.on("SHOW_MESSAGE", (payload) => {
   // Support both old string payloads and new object payloads
   const msg = typeof payload === "string" ? payload : payload.msg;
@@ -53,14 +55,17 @@ EventBus.on("SHOW_MESSAGE", (payload) => {
     <div class="message-content">${msg}</div>
   `;
   messagePopup.classList.add("show");
+  dialogueBackdrop.classList.remove("hidden");
 });
 
 messagePopup.addEventListener("click", () => {
   messagePopup.classList.remove("show");
+  dialogueBackdrop.classList.add("hidden");
 });
 
 EventBus.on("HIDE_MESSAGE", () => {
   messagePopup.classList.remove("show");
+  dialogueBackdrop.classList.add("hidden");
   messagePopup.innerHTML = '';
 });
 
