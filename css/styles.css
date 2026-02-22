@@ -60,6 +60,24 @@ body {
   font-size: 1.3rem;
   line-height: 1.5;
   margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.dialogue-avatar {
+  width: 120px;
+  height: 120px;
+  object-fit: contain;
+  border: 3px solid gold;
+  border-radius: 8px;
+  background: #222;
+  box-shadow: 0 0 10px gold;
+  flex-shrink: 0;
+}
+
+.dialogue-content {
+  flex-grow: 1;
 }
 
 #dialogue-choices button {

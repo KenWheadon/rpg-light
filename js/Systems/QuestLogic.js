@@ -50,7 +50,7 @@ export default class QuestLogic {
           if (sourceEntityId) this.stateManager.removeEntity(sourceEntityId);
           break;
         case 'show_message':
-          EventBus.emit('SHOW_MESSAGE', action.value);
+          EventBus.emit('SHOW_MESSAGE', { msg: action.value, sourceEntityId });
           break;
         case 'change_scene':
           this.stateManager.changeScene(action.target);
@@ -59,7 +59,7 @@ export default class QuestLogic {
           this.stateManager.setFlag(action.target, action.value);
           break;
         case 'show_dialogue':
-          EventBus.emit('SHOW_DIALOGUE', action.target);
+          EventBus.emit('SHOW_DIALOGUE', { targetId: action.target, sourceEntityId: sourceEntityId });
           break;
         case 'close_dialogue':
           EventBus.emit('CLOSE_DIALOGUE');
