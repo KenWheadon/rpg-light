@@ -67,6 +67,14 @@ export default class Inventory {
   showOptions(rect) {
     this.optionsMenu.style.left = `${rect.left + rect.width / 2}px`;
     this.optionsMenu.style.top = `${rect.top - 10}px`;
+    
+    // Update button text based on active state
+    if (this.stateManager.activeItem === this.selectedItemId) {
+      this.wieldBtn.textContent = 'Unequip';
+    } else {
+      this.wieldBtn.textContent = 'Wield';
+    }
+
     this.optionsMenu.classList.remove('hidden');
   }
 
