@@ -28,8 +28,30 @@ new Exporter(stateManager);
 
 // Message popup
 const messagePopup = document.getElementById("message-popup");
-EventBus.on("SHOW_MESSAGE", (msg) => {
-  messagePopup.textContent = msg;
+EventBus.on("SHOW_MESSAGE", (payload) => {
+  // Support both old string payloads and new object payloads
+  const msg = typeof payload === "string" ? payload : payload.msg;
+  const sourceEntityId = typeof payload === "string" ? null : payload.sourceEntityId;
+  const customAvatar = typeof payload === "string" ? null : payload.customAvatar;
+
+  let avatarImg = '';
+  
+  if (customAvatar) {
+    // Explicit avatar provided in JSON
+    avatarImg = `<img src="${customAvatar}" class="message-avatar" alt="Speaker" />`;
+  } else if (sourceEntityId) {
+    // Fallback to the entity's image
+    const scene = stateManager.getCurrentSceneData();
+    const entity = scene.entities.find(e => e.id === sourceEntityId);
+    if (entity && entity.image) {
+      avatarImg = `<img src="${entity.image}" class="message-avatar" alt="${entity.name || 'Object'}" />`;
+    }
+  }
+
+  messagePopup.innerHTML = `
+    ${avatarImg}
+    <div class="message-content">${msg}</div>
+  `;
   messagePopup.classList.add("show");
 });
 

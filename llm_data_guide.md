@@ -77,7 +77,7 @@ When a player clicks an entity, the engine evaluates the `on_click` array top-to
 
 - `{ "type": "add_item", "target": "item_id" }`: Adds an item to the inventory.
 - `{ "type": "remove_entity" }`: Removes the clicked entity from the scene.
-- `{ "type": "show_message", "value": "Text here" }`: Shows a quick toast/message.
+- `{ "type": "show_message", "value": "Text here", "avatar": "image_url_here" }`: Shows a description/message box at the bottom of the screen. `avatar` is optional; if omitted, the game uses the entity's image.
 - `{ "type": "set_flag", "target": "flag_name", "value": true/false }`: Changes a global state flag.
 - `{ "type": "change_scene", "target": "scene_id" }`: Teleports the player to another scene.
 - `{ "type": "show_dialogue", "target": "dialogue_id" }`: Opens a branching dialogue tree.

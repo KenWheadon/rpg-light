@@ -47,7 +47,7 @@ export default class Dialogue {
       const btn = document.createElement('button');
       btn.textContent = choice.label;
       btn.addEventListener('click', () => {
-        this.questLogic.executeActions(choice.actions);
+        this.questLogic.executeActions(choice.actions, sourceEntityId);
         // Dialogue auto-closes after any choice (standard in most story engines)
         this.close();
       });

@@ -50,7 +50,11 @@ export default class QuestLogic {
           if (sourceEntityId) this.stateManager.removeEntity(sourceEntityId);
           break;
         case 'show_message':
-          EventBus.emit('SHOW_MESSAGE', { msg: action.value, sourceEntityId });
+          EventBus.emit('SHOW_MESSAGE', { 
+            msg: action.value, 
+            sourceEntityId,
+            customAvatar: action.avatar 
+          });
           break;
         case 'change_scene':
           this.stateManager.changeScene(action.target);
