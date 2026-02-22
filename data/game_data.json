@@ -1,47 +1,491 @@
 {
-  "settings": { "start_scene": "tavern_main", "player_name": "Hero" },
-  "state": { "inventory": [], "flags": { "has_met_king": false, "cellar_unlocked": false } },
+  "settings": {
+    "start_scene": "royal_courtyard",
+    "player_name": "Prince Mortimer"
+  },
+  "state": {
+    "inventory": [],
+    "flags": {
+      "commander_gone": false,
+      "befriended_chef": false,
+      "taster_eliminated": false,
+      "food_poisoned": false
+    }
+  },
   "scenes": {
-    "tavern_main": {
+    "royal_courtyard": {
       "background": "https://picsum.photos/id/1015/1920/1080",
       "entities": [
-        { "id": "rusty_key_01", "name": "Rusty Key", "type": "item", "x": 25, "y": 65, "image": "https://picsum.photos/id/201/80/80", "on_click": [ { "conditions": [], "actions": [ { "type": "add_item", "target": "rusty_key_01" }, { "type": "remove_entity" }, { "type": "show_message", "value": "You picked up a rusty key!" } ] } ] },
-        { "id": "cellar_door", "name": "Cellar Door", "type": "portal", "x": 75, "y": 48, "image": "https://picsum.photos/id/237/120/180", "on_click": [ 
-          { 
-            "conditions": [ { "type": "requires_active_item", "value": "rusty_key_01" } ], 
-            "actions": [ 
-              { "type": "set_flag", "target": "cellar_unlocked", "value": true }, 
-              { "type": "change_scene", "target": "cellar_main" },
-              { "type": "show_message", "value": "You unlocked the cellar!" }
-            ] 
-          },
-          { "conditions": [], "actions": [ { "type": "show_dialogue", "target": "door_locked_text" } ] } 
-        ] },
-        { "id": "barrel_01", "name": "Old Barrel", "type": "decor", "x": 12, "y": 72, "image": "https://picsum.photos/id/180/90/90", "on_click": [ { "conditions": [], "actions": [ { "type": "show_message", "value": "Just an old dusty barrel." } ] } ] }
+        {
+          "id": "commanders_door",
+          "name": "Commander's Quarters",
+          "type": "portal",
+          "x": 25,
+          "y": 45,
+          "image": "https://picsum.photos/id/201/90/120",
+          "on_click": [
+            {
+              "conditions": [],
+              "actions": [
+                {
+                  "type": "change_scene",
+                  "target": "commanders_quarters"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "kitchen_door",
+          "name": "Kitchen Door",
+          "type": "portal",
+          "x": 70,
+          "y": 55,
+          "image": "https://picsum.photos/id/292/100/100",
+          "on_click": [
+            {
+              "conditions": [],
+              "actions": [
+                {
+                  "type": "change_scene",
+                  "target": "royal_kitchen"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "vault_entrance",
+          "name": "Heavily Guarded Poison Vault",
+          "type": "portal",
+          "x": 15,
+          "y": 75,
+          "image": "https://picsum.photos/id/133/80/140",
+          "on_click": [
+            {
+              "conditions": [
+                {
+                  "type": "flag_true",
+                  "value": "commander_gone"
+                }
+              ],
+              "actions": [
+                {
+                  "type": "change_scene",
+                  "target": "poison_vault"
+                }
+              ]
+            },
+            {
+              "conditions": [],
+              "actions": [
+                {
+                  "type": "show_message",
+                  "value": "The vault door is sealed with the royal commander's personal lock. No entry without his approval!"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "sneezing_powder",
+          "name": "Mysterious Pouch of Sneezing Powder",
+          "type": "item",
+          "x": 52,
+          "y": 35,
+          "image": "https://picsum.photos/id/180/65/65",
+          "on_click": [
+            {
+              "conditions": [],
+              "actions": [
+                {
+                  "type": "add_item",
+                  "target": "sneezing_powder"
+                },
+                {
+                  "type": "remove_entity"
+                },
+                {
+                  "type": "show_message",
+                  "value": "You slyly pocket the pouch. This could be useful for making someone... disappear temporarily."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "courtyard_sign",
+          "name": "Weird Bulletin Board",
+          "type": "decor",
+          "x": 80,
+          "y": 25,
+          "image": "https://picsum.photos/id/251/70/90",
+          "on_click": [
+            {
+              "conditions": [],
+              "actions": [
+                {
+                  "type": "show_message",
+                  "value": "The board reads: 'Wanted: Volunteers for the Bottomless Pie Mine expedition. Bring your own spoon.'"
+                }
+              ]
+            }
+          ]
+        }
       ]
     },
-    "cellar_main": {
-      "background": "https://picsum.photos/id/1021/1920/1080",
+    "commanders_quarters": {
+      "background": "https://picsum.photos/id/251/1920/1080",
       "entities": [
-        { "id": "ladder_up", "name": "Ladder Up", "type": "portal", "x": 50, "y": 20, "image": "https://picsum.photos/id/982/100/150", "on_click": [ { "conditions": [], "actions": [ { "type": "change_scene", "target": "tavern_main" } ] } ] }
+        {
+          "id": "general_grumpus",
+          "name": "General Grumpus",
+          "type": "decor",
+          "x": 48,
+          "y": 40,
+          "image": "https://picsum.photos/id/64/110/160",
+          "on_click": [
+            {
+              "conditions": [],
+              "actions": [
+                {
+                  "type": "show_dialogue",
+                  "target": "general_dialogue"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "back_to_courtyard",
+          "name": "Back to Courtyard",
+          "type": "portal",
+          "x": 12,
+          "y": 80,
+          "image": "https://picsum.photos/id/201/80/80",
+          "on_click": [
+            {
+              "conditions": [],
+              "actions": [
+                {
+                  "type": "change_scene",
+                  "target": "royal_courtyard"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "poison_vault": {
+      "background": "https://picsum.photos/id/870/1920/1080",
+      "entities": [
+        {
+          "id": "giggle_poison_vial",
+          "name": "GiggleDeath Poison Vial",
+          "type": "item",
+          "x": 48,
+          "y": 52,
+          "image": "https://picsum.photos/id/201/75/95",
+          "on_click": [
+            {
+              "conditions": [],
+              "actions": [
+                {
+                  "type": "add_item",
+                  "target": "giggle_poison"
+                },
+                {
+                  "type": "remove_entity"
+                },
+                {
+                  "type": "show_message",
+                  "value": "You snatch the glowing purple vial. One whiff and you'll laugh until your ribs revolt and your soul exits via your mouth in pure joy. Perfect for regicide!"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "vault_exit",
+          "name": "Exit Vault",
+          "type": "portal",
+          "x": 20,
+          "y": 82,
+          "image": "https://picsum.photos/id/133/70/70",
+          "on_click": [
+            {
+              "conditions": [],
+              "actions": [
+                {
+                  "type": "change_scene",
+                  "target": "royal_courtyard"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "royal_kitchen": {
+      "background": "https://picsum.photos/id/312/1920/1080",
+      "entities": [
+        {
+          "id": "chef_gumbo",
+          "name": "Chef Gumbo the Eccentric",
+          "type": "decor",
+          "x": 65,
+          "y": 48,
+          "image": "https://picsum.photos/id/292/120/140",
+          "on_click": [
+            {
+              "conditions": [],
+              "actions": [
+                {
+                  "type": "show_dialogue",
+                  "target": "chef_dialogue"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "sir_nibbles",
+          "name": "Sir Nibbles the Food Taster",
+          "type": "decor",
+          "x": 35,
+          "y": 52,
+          "image": "https://picsum.photos/id/180/95/130",
+          "on_click": [
+            {
+              "conditions": [
+                {
+                  "type": "requires_active_item",
+                  "value": "sneezing_powder"
+                }
+              ],
+              "actions": [
+                {
+                  "type": "set_flag",
+                  "target": "taster_eliminated",
+                  "value": true
+                },
+                {
+                  "type": "remove_entity"
+                },
+                {
+                  "type": "show_message",
+                  "value": "You 'accidentally' puff the sneezing powder near him. Sir Nibbles erupts into a hurricane of sneezes and runs screaming from the kitchen, knocking over three pots on his way out!"
+                }
+              ]
+            },
+            {
+              "conditions": [],
+              "actions": [
+                {
+                  "type": "show_message",
+                  "value": "Sir Nibbles squints at you. 'Everything must be tasted thrice, Your Sneakiness. I mean, Highness.'"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "dining_portal",
+          "name": "Door to Grand Dining Hall",
+          "type": "portal",
+          "x": 85,
+          "y": 60,
+          "image": "https://picsum.photos/id/251/90/110",
+          "on_click": [
+            {
+              "conditions": [],
+              "actions": [
+                {
+                  "type": "change_scene",
+                  "target": "dining_hall"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "kitchen_exit",
+          "name": "Back to Courtyard",
+          "type": "portal",
+          "x": 8,
+          "y": 75,
+          "image": "https://picsum.photos/id/1015/80/80",
+          "on_click": [
+            {
+              "conditions": [],
+              "actions": [
+                {
+                  "type": "change_scene",
+                  "target": "royal_courtyard"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "dining_hall": {
+      "background": "https://picsum.photos/id/133/1920/1080",
+      "entities": [
+        {
+          "id": "king_bloopington",
+          "name": "King Bloopington",
+          "type": "decor",
+          "x": 50,
+          "y": 35,
+          "image": "https://picsum.photos/id/64/150/180",
+          "on_click": [
+            {
+              "conditions": [
+                {
+                  "type": "flag_true",
+                  "value": "food_poisoned"
+                }
+              ],
+              "actions": [
+                {
+                  "type": "show_message",
+                  "value": "The King digs into his stew. 'By the gods, this has EXTRA ZING today!' He begins giggling... then howling with laughter. His belly shakes, his crown spins like a top, and suddenly he explodes into a shower of sparkling confetti and rubber ducks! The throne is yours, Prince Mortimer. Long live the new weird king!"
+                }
+              ]
+            },
+            {
+              "conditions": [],
+              "actions": [
+                {
+                  "type": "show_message",
+                  "value": "King Bloopington beams at you. 'Brother! Join me for this magnificent feast of mystery stew!'"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "back_to_kitchen",
+          "name": "Back to Kitchen",
+          "type": "portal",
+          "x": 20,
+          "y": 80,
+          "image": "https://picsum.photos/id/312/80/80",
+          "on_click": [
+            {
+              "conditions": [],
+              "actions": [
+                {
+                  "type": "change_scene",
+                  "target": "royal_kitchen"
+                }
+              ]
+            }
+          ]
+        }
       ]
     }
   },
   "dialogues": {
-    "door_locked_text": {
-      "text": "It's locked tight. Looks like it takes a heavy, rusty key.",
+    "general_dialogue": {
+      "text": "Prince Mortimer, my favorite royal schemer! What brings you to my quarters filled with maps of dubious military value?",
       "choices": [
-        { 
-          "label": "Use Rusty Key", 
-          "conditions": [ { "type": "has_item", "value": "rusty_key_01" } ],
-          "actions": [ 
-            { "type": "set_flag", "target": "cellar_unlocked", "value": true }, 
-            { "type": "change_scene", "target": "cellar_main" },
-            { "type": "show_message", "value": "You unlocked the cellar with the key!" }
+        {
+          "label": "General, urgent news from the King! He commands you to personally lead an expedition to the Bottomless Pie Mine in the Misty Mountains. Leave at once!",
+          "conditions": [],
+          "actions": [
+            {
+              "type": "set_flag",
+              "target": "commander_gone",
+              "value": true
+            },
+            {
+              "type": "show_message",
+              "value": "General Grumpus jumps up with glee, his mustache quivering with excitement. 'Pie? Adventure? For king and country... and pastry!' He grabs his gear and charges out the door, yelling battle cries about crusts and fillings."
+            },
+            {
+              "type": "close_dialogue"
+            }
           ]
         },
-        { "label": "Leave it alone", "actions": [ { "type": "close_dialogue" } ] },
-        { "label": "Try to force it open", "actions": [ { "type": "show_message", "value": "You hurt your shoulder..." } ] }
+        {
+          "label": "Just here to admire your legendary mustache grooming kit.",
+          "conditions": [],
+          "actions": [
+            {
+              "type": "show_message",
+              "value": "He strokes his magnificent mustache proudly. 'It takes three different waxes and the tears of defeated enemies to maintain perfection.'"
+            },
+            {
+              "type": "close_dialogue"
+            }
+          ]
+        }
+      ]
+    },
+    "chef_dialogue": {
+      "text": "Prince Mortimer! Come to sample my latest masterpiece? Chocolate-dipped fermented herring with a side of exploding candy floss!",
+      "choices": [
+        {
+          "label": "Chef, your genius knows no bounds! That smells like victory and chaos. We should team up to make the King's meal unforgettable.",
+          "conditions": [],
+          "actions": [
+            {
+              "type": "set_flag",
+              "target": "befriended_chef",
+              "value": true
+            },
+            {
+              "type": "show_message",
+              "value": "Chef Gumbo's four eyes light up. 'Yes! Finally someone with taste! We are brothers in culinary madness from now on.'"
+            },
+            {
+              "type": "close_dialogue"
+            }
+          ]
+        },
+        {
+          "label": "I brought a special 'seasoning' for the King's dish. Care to add it?",
+          "conditions": [
+            {
+              "type": "flag_true",
+              "value": "befriended_chef"
+            },
+            {
+              "type": "has_item",
+              "value": "giggle_poison"
+            }
+          ],
+          "actions": [
+            {
+              "type": "set_flag",
+              "target": "food_poisoned",
+              "value": true
+            },
+            {
+              "type": "show_message",
+              "value": "You discreetly hand over the vial. Chef Gumbo cackles maniacally as he stirs it into the royal stew with a flourish. 'He'll be laughing all the way to the afterlife!'"
+            },
+            {
+              "type": "close_dialogue"
+            }
+          ]
+        },
+        {
+          "label": "On second thought, I'm good.",
+          "conditions": [],
+          "actions": [
+            {
+              "type": "show_message",
+              "value": "Chef shrugs and goes back to flambéing something that shouldn't be on fire."
+            },
+            {
+              "type": "close_dialogue"
+            }
+          ]
+        }
       ]
     }
   }

@@ -17,18 +17,18 @@ export default class DragDrop {
 
   onMouseDown(e) {
     if (!this.stage.classList.contains('editor-mode')) return;
-    const img = e.target.closest('img[data-id]');
-    if (!img) return;
+    const target = e.target.closest('div[data-id]');
+    if (!target) return;
 
-    this.currentEntityId = img.dataset.id;
+    this.currentEntityId = target.dataset.id;
     this.isDragging = true;
 
     // Select immediately
     EventBus.emit('ENTITY_SELECTED', this.currentEntityId);
 
     const rect = this.stage.getBoundingClientRect();
-    this.offsetX = (e.clientX - rect.left) / rect.width * 100 - parseFloat(img.style.left);
-    this.offsetY = (e.clientY - rect.top) / rect.height * 100 - parseFloat(img.style.top);
+    this.offsetX = (e.clientX - rect.left) / rect.width * 100 - parseFloat(target.style.left);
+    this.offsetY = (e.clientY - rect.top) / rect.height * 100 - parseFloat(target.style.top);
   }
 
   onMouseMove(e) {

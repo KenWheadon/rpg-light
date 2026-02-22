@@ -18,7 +18,7 @@ export default class InputHandler {
     }
 
     // 3. Normal gameplay click on an entity
-    const target = e.target.closest('img[data-id]');
+    const target = e.target.closest('div[data-id]');
     if (!target) return;
 
     const entityId = target.dataset.id;

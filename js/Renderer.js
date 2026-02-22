@@ -26,31 +26,41 @@ export default class Renderer {
 
     // Draw every entity at its exact percentage coordinates
     scene.entities.forEach(entity => {
-      const img = document.createElement('img');
+      // Create a container for the entity and its label
+      const container = document.createElement('div');
+      container.style.position = 'absolute';
+      container.style.left = `${entity.x}%`;
+      container.style.top = `${entity.y}%`;
+      container.style.transform = 'translate(-50%, -50%)';
+      container.style.display = 'flex';
+      container.style.flexDirection = 'column';
+      container.style.alignItems = 'center';
+      container.style.pointerEvents = 'auto'; // allow clicks on container
+      container.style.cursor = 'pointer';
+      container.dataset.id = entity.id; // required for InputHandler to know what we clicked
 
+      const img = document.createElement('img');
       img.src = entity.image;
       img.alt = entity.name || entity.id;
-      img.dataset.id = entity.id;
-
-      // Core positioning (exactly as specified in the blueprint)
-      img.style.position = 'absolute';
-      img.style.left = `${entity.x}%`;
-      img.style.top = `${entity.y}%`;
-      img.style.transform = 'translate(-50%, -50%)';
+      img.style.pointerEvents = 'none'; // let the container handle clicks
+      img.style.userSelect = 'none';
 
       // Visual sizing
-      img.style.maxWidth = '15%';
+      img.style.maxWidth = '100px'; // fixed max width for now to prevent huge entities
       img.style.height = 'auto';
-      img.style.pointerEvents = 'auto';
-      img.style.userSelect = 'none';
-      img.style.cursor = 'pointer';
 
       // Editor highlight when selected
       if (selectedId === entity.id) {
         img.classList.add('selected');
       }
 
-      this.stage.appendChild(img);
+      const label = document.createElement('div');
+      label.textContent = entity.name || entity.id;
+      label.className = 'entity-label';
+
+      container.appendChild(label);
+      container.appendChild(img);
+      this.stage.appendChild(container);
     });
 
     console.log(`%cRenderer: Painted ${scene.entities.length} entities in "${this.stateManager.currentScene}"`, 'color:#0af');
