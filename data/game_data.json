@@ -406,6 +406,9 @@
               "value": "General Grumpus jumps up with glee, his mustache quivering with excitement. 'Pie? Adventure? For king and country... and pastry!' He grabs his gear and charges out the door, yelling battle cries about crusts and fillings."
             },
             {
+              "type": "remove_entity"
+            },
+            {
               "type": "close_dialogue"
             }
           ]

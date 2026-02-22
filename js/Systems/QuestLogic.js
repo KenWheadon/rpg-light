@@ -47,7 +47,8 @@ export default class QuestLogic {
           this.stateManager.addItem(action.target);
           break;
         case 'remove_entity':
-          if (sourceEntityId) this.stateManager.removeEntity(sourceEntityId);
+          const entityToRemove = action.target || sourceEntityId;
+          if (entityToRemove) this.stateManager.removeEntity(entityToRemove);
           break;
         case 'show_message':
           EventBus.emit('SHOW_MESSAGE', { 
