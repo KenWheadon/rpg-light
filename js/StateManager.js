@@ -43,6 +43,8 @@ export default class StateManager {
     if (this.data.scenes[newScene]) {
       this.currentScene = newScene;
       this.activeItem = null;
+      EventBus.emit('CLOSE_DIALOGUE');
+      EventBus.emit('HIDE_MESSAGE');
       EventBus.emit('STATE_UPDATED');
     }
   }

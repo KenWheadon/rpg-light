@@ -59,6 +59,11 @@ messagePopup.addEventListener("click", () => {
   messagePopup.classList.remove("show");
 });
 
+EventBus.on("HIDE_MESSAGE", () => {
+  messagePopup.classList.remove("show");
+  messagePopup.innerHTML = '';
+});
+
 async function boot() {
   await stateManager.loadData();
 }
