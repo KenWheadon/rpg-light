@@ -14,8 +14,8 @@ export default class Dialogue {
     EventBus.on('CLOSE_DIALOGUE', () => this.close());
   }
 
-  show({ targetId, sourceEntityId }) {
-    const dialogue = this.stateManager.data.dialogues[targetId];
+  show({ targetId, sourceEntityId, rawDialogue }) {
+    const dialogue = rawDialogue || this.stateManager.data.dialogues[targetId];
     if (!dialogue) {
       console.warn(`Dialogue "${targetId}" not found`);
       return;

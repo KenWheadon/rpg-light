@@ -52,7 +52,7 @@ body {
 
 #dialogue-box {
   position: absolute;
-  bottom: 20px;
+  bottom: 100px;
   left: 50%;
   transform: translateX(-50%);
   width: 80%;
@@ -107,15 +107,18 @@ body {
 
 #inventory-bar {
   position: absolute;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
+  bottom: 0;
+  left: 0;
+  width: 100%;
   display: flex;
+  justify-content: center;
+  align-items: center;
   gap: 10px;
   background: rgba(0, 0, 0, 0.7);
   padding: 10px;
-  border-radius: 8px;
   pointer-events: auto;
+  z-index: 40;
+  border-top: 2px solid #444;
 }
 
 #inventory-bar img {
@@ -129,6 +132,35 @@ body {
 #inventory-bar img.active {
   border-color: gold;
   box-shadow: 0 0 15px gold;
+}
+
+#inventory-options {
+  position: absolute;
+  transform: translate(-50%, -100%);
+  background: rgba(0, 0, 0, 0.9);
+  border: 2px solid gold;
+  border-radius: 8px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 150;
+  pointer-events: auto;
+}
+
+#inventory-options button {
+  background: #222;
+  color: #fff;
+  border: 1px solid #666;
+  padding: 8px 16px;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+#inventory-options button:hover {
+  background: #444;
+  border-color: gold;
 }
 
 #editor-panel {
@@ -165,7 +197,7 @@ body {
 
 #message-popup {
   position: absolute;
-  bottom: 20px;
+  bottom: 100px;
   left: 50%;
   transform: translateX(-50%);
   width: 80%;
@@ -177,7 +209,7 @@ body {
   border: 3px solid #ffeb3b;
   font-size: 1.3rem;
   text-align: left;
-  pointer-events: auto;
+  pointer-events: none;
   cursor: pointer;
   opacity: 0;
   transition: opacity 0.4s ease;
@@ -207,6 +239,7 @@ body {
 
 #message-popup.show {
   opacity: 1;
+  pointer-events: auto;
 }
 
 /* Inventory item hover effect */
