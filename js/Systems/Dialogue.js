@@ -6,6 +6,7 @@ export default class Dialogue {
     this.questLogic = questLogic;
 
     this.box = document.getElementById('dialogue-box');
+    this.backdrop = document.getElementById('dialogue-backdrop');
     this.textEl = document.getElementById('dialogue-text');
     this.choicesEl = document.getElementById('dialogue-choices');
 
@@ -55,9 +56,11 @@ export default class Dialogue {
     });
 
     this.box.classList.remove('hidden');
+    this.backdrop.classList.remove('hidden');
   }
 
   close() {
     this.box.classList.add('hidden');
+    this.backdrop.classList.add('hidden');
   }
 }

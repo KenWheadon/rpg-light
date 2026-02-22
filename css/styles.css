@@ -42,6 +42,14 @@ body {
   pointer-events: none;
 }
 
+#dialogue-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 50;
+  pointer-events: auto;
+}
+
 #dialogue-box {
   position: absolute;
   bottom: 20px;
@@ -54,6 +62,7 @@ body {
   padding: 20px;
   border-radius: 8px;
   pointer-events: auto;
+  z-index: 100;
 }
 
 #dialogue-text {
