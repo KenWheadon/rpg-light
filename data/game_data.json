@@ -1,0 +1,48 @@
+{
+  "settings": { "start_scene": "tavern_main", "player_name": "Hero" },
+  "state": { "inventory": [], "flags": { "has_met_king": false, "cellar_unlocked": false } },
+  "scenes": {
+    "tavern_main": {
+      "background": "https://picsum.photos/id/1015/1920/1080",
+      "entities": [
+        { "id": "rusty_key_01", "name": "Rusty Key", "type": "item", "x": 25, "y": 65, "image": "https://picsum.photos/id/201/80/80", "on_click": [ { "conditions": [], "actions": [ { "type": "add_item", "target": "rusty_key_01" }, { "type": "remove_entity" }, { "type": "show_message", "value": "You picked up a rusty key!" } ] } ] },
+        { "id": "cellar_door", "name": "Cellar Door", "type": "portal", "x": 75, "y": 48, "image": "https://picsum.photos/id/237/120/180", "on_click": [ 
+          { 
+            "conditions": [ { "type": "requires_active_item", "value": "rusty_key_01" } ], 
+            "actions": [ 
+              { "type": "set_flag", "target": "cellar_unlocked", "value": true }, 
+              { "type": "change_scene", "target": "cellar_main" },
+              { "type": "show_message", "value": "You unlocked the cellar!" }
+            ] 
+          },
+          { "conditions": [], "actions": [ { "type": "show_dialogue", "target": "door_locked_text" } ] } 
+        ] },
+        { "id": "barrel_01", "name": "Old Barrel", "type": "decor", "x": 12, "y": 72, "image": "https://picsum.photos/id/180/90/90", "on_click": [ { "conditions": [], "actions": [ { "type": "show_message", "value": "Just an old dusty barrel." } ] } ] }
+      ]
+    },
+    "cellar_main": {
+      "background": "https://picsum.photos/id/1021/1920/1080",
+      "entities": [
+        { "id": "ladder_up", "name": "Ladder Up", "type": "portal", "x": 50, "y": 20, "image": "https://picsum.photos/id/982/100/150", "on_click": [ { "conditions": [], "actions": [ { "type": "change_scene", "target": "tavern_main" } ] } ] }
+      ]
+    }
+  },
+  "dialogues": {
+    "door_locked_text": {
+      "text": "It's locked tight. Looks like it takes a heavy, rusty key.",
+      "choices": [
+        { 
+          "label": "Use Rusty Key", 
+          "conditions": [ { "type": "has_item", "value": "rusty_key_01" } ],
+          "actions": [ 
+            { "type": "set_flag", "target": "cellar_unlocked", "value": true }, 
+            { "type": "change_scene", "target": "cellar_main" },
+            { "type": "show_message", "value": "You unlocked the cellar with the key!" }
+          ]
+        },
+        { "label": "Leave it alone", "actions": [ { "type": "close_dialogue" } ] },
+        { "label": "Try to force it open", "actions": [ { "type": "show_message", "value": "You hurt your shoulder..." } ] }
+      ]
+    }
+  }
+}

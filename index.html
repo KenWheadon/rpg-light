@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2D Story Engine + Editor</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div id="game-container">
+    <div id="stage"></div>
+
+    <div id="ui-overlay">
+      <div id="dialogue-box" class="hidden">
+        <div id="dialogue-text"></div>
+        <div id="dialogue-choices"></div>
+      </div>
+      <div id="inventory-bar"></div>
+
+      <!-- NEW: Floating message popup -->
+      <div id="message-popup"></div>
+    </div>
+
+    <div id="editor-panel">
+  <div class="sidebar">
+    <h2>🛠️ Editor Mode</h2>
+    <button id="save-btn">💾 Save Game Data (Export JSON)</button>
+
+    <div id="inspector">
+      <h3>Selected Entity</h3>
+      <div id="inspector-fields"></div>
+    </div>
+
+    <div id="export-area" class="hidden">
+      <h3>Game Data JSON</h3>
+      <textarea id="export-textarea" readonly></textarea>
+      <button id="copy-btn">📋 Copy to Clipboard</button>
+      <button id="close-export-btn">Close</button>
+    </div>
+  </div>
+</div>
+  </div>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
